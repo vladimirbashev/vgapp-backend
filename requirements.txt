@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+#boto3
+#aiofiles
+#sqlalchemy
+#databases
+#python-jose
+#passlib
+#bcrypt
+#psycopg2
