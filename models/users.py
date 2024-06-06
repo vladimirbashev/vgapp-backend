@@ -15,7 +15,5 @@ class User(Base):
     password = Column(String)
     createdate = Column(DateTime, default=datetime.utcnow)
     updatedate = Column(DateTime, default=datetime.utcnow)
-    bio = Column(String, nullable=True)
-    image = Column(String, nullable=True)
 
     # articles = relationship("Article", back_populates="author")

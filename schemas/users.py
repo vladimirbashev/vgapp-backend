@@ -17,8 +17,6 @@ class User(UserBase):
     id: int
     createdate: datetime
     updatedate: datetime
-    bio: Optional[str] = None
-    image: Optional[str] = None
 
     class Config:
         orm_mode = True
