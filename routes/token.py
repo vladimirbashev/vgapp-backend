@@ -12,7 +12,7 @@ from crud import users as crud
 router = APIRouter()
 
 
-@router.post("/token/", response_model=schemas.TokenSchema)
+@router.post("/token/", response_model=schemas.TokenResponse)
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
     user = crud.get_user_by_username(db, form_data.username)
     if not user:
