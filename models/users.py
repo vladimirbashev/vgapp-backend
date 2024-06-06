@@ -18,4 +18,4 @@ class User(Base):
     bio = Column(String, nullable=True)
     image = Column(String, nullable=True)
 
-    articles = relationship("Article", back_populates="author")
+    # articles = relationship("Article", back_populates="author")
