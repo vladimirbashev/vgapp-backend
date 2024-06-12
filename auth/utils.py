@@ -9,7 +9,7 @@ REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 ALGORITHM = "HS256"
 JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']  # should be kept secret
 
-password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+password_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 
 def get_hashed_password(password: str) -> str:

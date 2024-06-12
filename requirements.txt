@@ -8,5 +8,5 @@ sqlalchemy
 databases
 python-jose
 passlib
-bcrypt
+argon2_cffi
 psycopg2
