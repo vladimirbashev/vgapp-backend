@@ -16,4 +16,4 @@ class User(Base):
     createdate = Column(DateTime, default=datetime.utcnow)
     updatedate = Column(DateTime, default=datetime.utcnow)
 
-    # articles = relationship("Article", back_populates="author")
+    files = relationship("File", back_populates="user")
