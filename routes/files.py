@@ -1,5 +1,5 @@
 from collections import namedtuple
-from typing import Optional, Annotated
+from typing import Annotated
 from fastapi import Depends, APIRouter
 from auth.deps import get_current_user
 from crud import files as crud
@@ -12,7 +12,7 @@ router = APIRouter()
 
 
 @router.get("/files/", response_model=schemas.Files)
-def read_files(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_files(current_user: Annotated[User, Depends(get_current_user)], skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     files = crud.get_files(db, skip=skip, limit=limit)
     count = crud.get_files_count(db)
 
@@ -30,7 +30,7 @@ def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)],
 
 
 @router.get("/users/{user_id}/files/", response_model=schemas.Files)
-def read_files_by_user(user_id: Optional[int], skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)], user_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     files = crud.get_files(db, user_id=user_id, skip=skip, limit=limit)
     count = crud.get_files_count(db, user_id=user_id)
 
