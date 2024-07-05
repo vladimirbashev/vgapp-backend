@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from schemas import files as schemas
@@ -24,3 +25,12 @@ def create_user_file(db: Session, user_id: int, path: str):
     db.commit()
     db.refresh(db_file)
     return db_file
+
+
+def delete_file(db: Session, file_id: int):
+    file = db.query(models.File).filter(models.File.id == file_id).first()
+    if not file:
+        raise HTTPException(status_code=404, detail="Hero not found")
+    db.delete(file)
+    db.commit()
+    return {"ok": True}
