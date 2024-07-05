@@ -18,9 +18,9 @@ def get_files_count(db: Session, user_id: int = None):
     return query.count()
 
 
-def create_user_file(db: Session, file: schemas.FileCreate, user_id: int):
-    db_article = models.File(**file.dict(), user_id=user_id)
-    db.add(db_article)
+def create_user_file(db: Session, user_id: int, path: str):
+    db_file = models.File(user_id=user_id, path=path)
+    db.add(db_file)
     db.commit()
-    db.refresh(db_article)
-    return db_article
+    db.refresh(db_file)
+    return db_file

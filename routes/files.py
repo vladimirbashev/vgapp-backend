@@ -1,6 +1,6 @@
 from collections import namedtuple
 from typing import Annotated
-from fastapi import Depends, APIRouter
+from fastapi import Depends, APIRouter, File, UploadFile
 from auth.deps import get_current_user
 from crud import files as crud
 from schemas import files as schemas
@@ -38,9 +38,6 @@ def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)],
     return FilesResponse(files, count)
 
 
-
-# @router.post("/users/{user_id}/files/", response_model=schemas.File)
-# def create_file_for_user(
-#     user_id: int, file: schemas.FileCreate, db: Session = Depends(get_db)
-# ):
-#     return crud.create_user_file(db=db, file=file, user_id=user_id)
+@router.post("/files/", response_model=schemas.File)
+def create_file_for_user(current_user: Annotated[User, Depends(get_current_user)], file: UploadFile, db: Session = Depends(get_db)):
+    return crud.create_user_file(db=db, user_id=current_user.id, path=file.filename)
