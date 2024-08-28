@@ -40,9 +40,10 @@ def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)],
 
 @router.post("/files/", response_model=schemas.File)
 def create_file_for_user(current_user: Annotated[User, Depends(get_current_user)], file: UploadFile, db: Session = Depends(get_db)):
+
     return crud.create_user_file(db=db, user_id=current_user.id, path=file.filename)
 
 
-@router.delete("/files/{file_id}/", response_model=schemas.File)
+@router.delete("/files/{file_id}/", response_model=schemas.FileDelete)
 def create_file_for_user(current_user: Annotated[User, Depends(get_current_user)], file_id: int, db: Session = Depends(get_db)):
     return crud.delete_file(db=db, file_id=file_id)

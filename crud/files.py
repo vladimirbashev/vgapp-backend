@@ -33,4 +33,4 @@ def delete_file(db: Session, file_id: int):
         raise HTTPException(status_code=404, detail="Hero not found")
     db.delete(file)
     db.commit()
-    return {"ok": True}
+    return {"id": file_id}

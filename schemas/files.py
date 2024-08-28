@@ -13,6 +13,10 @@ class FileCreate(FileBase):
     pass
 
 
+class FileDelete(BaseModel):
+    id: int
+
+
 class File(FileBase):
     id: int
     user: User
