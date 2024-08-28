@@ -5,11 +5,11 @@ from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from apps.api.auth.utils import JWT_SECRET_KEY, ALGORITHM
+from auth.utils import JWT_SECRET_KEY, ALGORITHM
 from config import get_db
-from apps.api.crud.users import get_user_by_email
-from apps.api.schemas.token import TokenPayload
-from apps.api.schemas.users import User
+from crud.users import get_user_by_email
+from schemas.token import TokenPayload
+from schemas.users import User
 
 
 reuseable_oauth = OAuth2PasswordBearer(

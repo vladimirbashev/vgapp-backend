@@ -1,9 +1,9 @@
 import datetime
 from sqlalchemy.orm import Session
 
-from apps.api.auth.utils import get_hashed_password
-from apps.api.schemas import users as schemas
-from apps.api.models import users as models
+from auth.utils import get_hashed_password
+from schemas import users as schemas
+from models import users as models
 
 
 def get_user(db: Session, user_id: int):
