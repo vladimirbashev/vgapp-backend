@@ -11,7 +11,6 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
-    username = Column(String)
     password = Column(String)
     createdate = Column(DateTime, default=datetime.utcnow)
     updatedate = Column(DateTime, default=datetime.utcnow)

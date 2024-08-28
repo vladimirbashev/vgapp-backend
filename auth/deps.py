@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from auth.utils import JWT_SECRET_KEY, ALGORITHM
 from config import get_db
-from crud.users import get_user_by_username
+from crud.users import get_user_by_email
 from schemas.token import TokenPayload
 from schemas.users import User
 
@@ -36,7 +36,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth), db: Session = 
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    user = get_user_by_username(db, token_data.sub)
+    user = get_user_by_email(db, token_data.sub)
 
     if user is None:
         raise HTTPException(
