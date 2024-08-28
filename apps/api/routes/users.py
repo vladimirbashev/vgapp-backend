@@ -1,11 +1,11 @@
 from typing import Annotated
 from fastapi import Depends, APIRouter, HTTPException
-from auth.deps import get_current_user
-from crud import users as crud
-from schemas import users as schemas
+from apps.api.auth.deps import get_current_user
+from apps.api.crud import users as crud
+from apps.api.schemas import users as schemas
 from sqlalchemy.orm import Session
 from config import get_db
-from schemas.users import User
+from apps.api.schemas.users import User
 
 router = APIRouter()
 

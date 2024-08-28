@@ -1,7 +1,7 @@
 from typing import List
 
 from pydantic import BaseModel
-from schemas.users import User
+from apps.api.schemas.users import User
 from datetime import datetime
 
 

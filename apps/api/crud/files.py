@@ -1,8 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from schemas import files as schemas
-from models import files as models
+from apps.api.models import files as models
 
 
 def get_files(db: Session, user_id: int = None, skip: int = 0, limit: int = 10):

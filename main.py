@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from routes import users, token, files
+
+from apps.api.app import api_app
 
 app = FastAPI()
-app.include_router(token.router, prefix='/api')
-app.include_router(users.router, prefix='/api')
-app.include_router(files.router, prefix='/api')
+
+app.mount('/api', api_app)
