@@ -12,13 +12,10 @@ from schemas.token import TokenPayload
 from schemas.users import User
 
 
-reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/login",
-    scheme_name="JWT"
-)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token")
 
 
-async def get_current_user(token: str = Depends(reuseable_oauth), db: Session = Depends(get_db)) -> User:
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     try:
         payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
         token_data = TokenPayload(**payload)

@@ -1,6 +1,5 @@
 from collections import namedtuple
-from typing import Annotated
-from fastapi import Depends, APIRouter, File, UploadFile
+from fastapi import Depends, APIRouter, UploadFile
 from auth.deps import get_current_user
 from crud import files as crud
 from schemas import files as schemas
@@ -12,7 +11,7 @@ router = APIRouter()
 
 
 @router.get("/files/", response_model=schemas.Files)
-def read_files(current_user: Annotated[User, Depends(get_current_user)], skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_files(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     files = crud.get_files(db, skip=skip, limit=limit)
     count = crud.get_files_count(db)
 
@@ -21,7 +20,7 @@ def read_files(current_user: Annotated[User, Depends(get_current_user)], skip: i
 
 
 @router.get("/users/me/files/", response_model=schemas.Files)
-def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)], skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_files_by_user(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     files = crud.get_files(db, user_id=current_user.id, skip=skip, limit=limit)
     count = crud.get_files_count(db, user_id=current_user.id)
 
@@ -30,7 +29,7 @@ def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)],
 
 
 @router.get("/users/{user_id}/files/", response_model=schemas.Files)
-def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)], user_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_files_by_user(user_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     files = crud.get_files(db, user_id=user_id, skip=skip, limit=limit)
     count = crud.get_files_count(db, user_id=user_id)
 
@@ -39,11 +38,11 @@ def read_files_by_user(current_user: Annotated[User, Depends(get_current_user)],
 
 
 @router.post("/files/", response_model=schemas.File)
-def create_file_for_user(current_user: Annotated[User, Depends(get_current_user)], file: UploadFile, db: Session = Depends(get_db)):
+def create_file_for_user(file: UploadFile, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
 
     return crud.create_user_file(db=db, user_id=current_user.id, path=file.filename)
 
 
 @router.delete("/files/{file_id}/", response_model=schemas.FileDelete)
-def create_file_for_user(current_user: Annotated[User, Depends(get_current_user)], file_id: int, db: Session = Depends(get_db)):
+def create_file_for_user(file_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     return crud.delete_file(db=db, file_id=file_id)

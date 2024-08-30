@@ -10,3 +10,4 @@ python-jose
 passlib
 argon2_cffi
 psycopg2
+fastapi-sessions
